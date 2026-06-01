@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <!--
+        Advanced Entity Table
+        
+        This table stores advanced entity records with support for flexible attribute storage
+        and enhanced data management capabilities. The table uses InnoDB engine for ACID
+        compliance and transaction support.
+        
+        Resource: default database connection
+        Engine: InnoDB
+        
+        Purpose: Persistent storage for vendor advanced entity data with relational integrity
+    -->
+    <table name="advanced_entity" resource="default" engine="innodb" comment="Vendor Advanced Entity Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Entity Name"/>
+        <column xsi:type="varchar" name="code" nullable="false" length="100" comment="Unique Code"/>
+        <column xsi:type="text" name="description" nullable="true" comment="Description"/>
+        <column xsi:type="smallint" name="status" nullable="false" default="1" comment="Status"/>
+        <column xsi:type="int" name="sort_order" nullable="true" default="0" comment="Sort Order"/>
+        <column xsi:type="varchar" name="image" nullable="true" length="255" comment="Image Path"/>
+        <column xsi:type="varchar" name="website" nullable="true" length="255" comment="Website URL"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" comment="Created At"/>
+        <column xsi:type="timestamp" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Updated At"/>
+
+        <!--
+            Defines a primary key constraint for the table using the "entity_id" column.
+            The "PRIMARY" referenceId indicates this is the main unique identifier for each record.
+        -->
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+        <!--
+            Defines a unique constraint on the "code" column to ensure that each value in this column is distinct across all records in the table.
+            The constraint is identified by the reference ID "VENDOR_ADV_ENTITY_CODE_UNIQUE".
+        -->
+        <constraint xsi:type="unique" referenceId="VENDOR_ADV_ENTITY_CODE_UNIQUE">
+            <column name="code"/>
+        </constraint>
+
+        <!-- 
+        Documentation: Database Index Definition
+        Purpose: Defines a B-tree index on the VENDOR_ADV_ENTITY_STATUS table/column
+        Usage: Optimizes query performance for filtering or sorting operations on the status field
+        Index Type: btree (Balanced Tree) - suitable for equality and range queries
+        Performance: Improves SELECT queries with WHERE clauses on status field
+        Note: This index should be applied during module installation/upgrade via db_schema.xml schema declaration
+        -->
+        <index referenceId="VENDOR_ADV_ENTITY_STATUS" indexType="btree">
+            <column name="status"/>
+        </index>
+
+    </table>
+
+</schema>

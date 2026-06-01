@@ -3,8 +3,8 @@
 #     cp ../nag-bk/auth.json .
 # fi
 php bin/magento maintenance:enable
-composer update
-#composer install
+#composer update
+composer install
 rm -rf generated/*
 php bin/magento setup:upgrade
 php bin/magento setu:di:compile

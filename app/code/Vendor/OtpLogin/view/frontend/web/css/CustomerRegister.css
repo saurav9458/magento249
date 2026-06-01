@@ -1,0 +1,96 @@
+.icon-checkmark:before{
+    -webkit-font-smoothing: antialiased;
+    font-size: 18px;
+    line-height: 20px;
+    color: #008000;
+    content: '\e610';
+    font-family: 'luma-icons';
+    vertical-align: middle;
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    text-align: center;
+}
+.icon-checkmark-fail:before{
+    -webkit-font-smoothing: antialiased;
+    font-size: 18px;
+    line-height: 20px;
+    color: #FF0000;
+    content: '\e616';
+    font-family: 'luma-icons';
+    vertical-align: middle;
+    display: inline-block;
+    font-weight: normal;
+    overflow: hidden;
+    speak: none;
+    text-align: center;
+}
+.use-10-digit{
+   font-weight:normal;
+   font-size:12px;
+}
+input.otp-input-verify, input.otp-input{
+    width:150px;
+}
+.forgotpassword-note {
+    padding: 10px;
+    margin-bottom: 20px;
+    background: #fff4bc;
+    color: #000000;
+}
+.customer-account-create div#otp-block,
+.customer-account-edit div#otp-block{
+    position:relative;
+}
+.customer-account-create button#resend,
+.customer-account-edit button#resend, .customer-account-create button#otp-verify-btn,
+.customer-account-edit button#otp-verify-btn{
+    position: absolute;
+    top: 0;
+    left: 155px;
+}
+#redirect .login-link{
+    color:#8dbf14;
+}
+#redirect .login-link:hover{
+    text-decoration: underline;
+}
+
+.country_code_field{float: left;    width: 20%;}
+.country_code_field span{    float: left;
+    padding: 12px 10px 0 0;
+    width: 15px;}
+.mobile-wv{float: left;width: 73% !important;margin-right: 10px;}
+.mobile-info-sm{display: block;clear: both;}
+.mobile-ct{float: left;
+    width: 70% !important;
+    margin-right: 0;
+    padding: 8px 7px !important;}
+
+@media only screen and (max-width: 360px) {
+    input.otp-input-verify, input.otp-input{
+        width:100px;
+    }
+    .mobile-wv{width: 64% !important;}
+}
+@media only screen and (min-width: 767px){
+    .register_control{
+        position:relative;
+    }
+    .register_control #loader{
+        position:absolute;
+        right:-40px;
+        top:0;
+    }
+}
+@media only screen and (min-width: 767px) and (max-width: 810px) {
+    .customer-account-edit input.otp-input{
+        width:80px;
+    }
+}
+@media only screen and (min-width: 810px) {
+    .customer-account-edit input.otp-input{
+        width:100px;
+    }
+}

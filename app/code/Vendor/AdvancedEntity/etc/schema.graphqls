@@ -1,0 +1,54 @@
+type AdvancedEntity {
+  entity_id: Int!
+  name: String!
+  status: Int!
+  code: String!
+  description: String
+  website: String
+  sort_order: Int!
+  image: String
+  updated_at: String
+  created_at: String
+}
+
+type DeleteResponse {
+    success: Boolean
+    message: String
+}
+
+type AdvancedEntitySearchResult {
+    items: [AdvancedEntity]
+    total_count: Int
+}
+
+type Query {
+    getAdvancedEntity(entity_id: Int!): AdvancedEntity
+    @resolver(class: "Vendor\\AdvancedEntity\\Model\\Resolver\\GetAdvancedEntity")
+    AdvancedEntitys(
+        pageSize: Int = 10
+        currentPage: Int = 1): AdvancedEntitySearchResult
+    @resolver(class: "Vendor\\AdvancedEntity\\Model\\Resolver\\AdvancedEntityList")
+}
+
+type Mutation {
+    createAdvancedEntity(
+        name: String! 
+        status: Int!
+        description: String!
+        website: String!
+        sort_order: Int!
+        image: String! ): AdvancedEntity
+        @resolver(class: "Vendor\\AdvancedEntity\\Model\\Resolver\\CreateAdvancedEntity")
+    updateAdvancedEntity(
+        entity_id: Int!
+        name: String!
+        status: Int!
+        description: String!
+        website: String!
+        sort_order: Int!
+        image: String!): AdvancedEntity 
+        @resolver(class: "Vendor\\AdvancedEntity\\Model\\Resolver\\UpdateAdvancedEntity")
+    deleteAdvancedEntity(
+        entity_id: Int!): DeleteResponse
+        @resolver(class: "Vendor\\AdvancedEntity\\Model\\Resolver\\DeleteAdvancedEntity")
+}

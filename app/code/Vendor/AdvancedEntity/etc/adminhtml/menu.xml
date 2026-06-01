@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+  <menu>
+    <add    id="Vendor_AdvancedEntity::menu" 
+            title="Custom" 
+            module="Vendor_AdvancedEntity" 
+            sortOrder="10" 
+            resource="Vendor_AdvancedEntity::menu" 
+            action="advancedentity/index/index" />
+    <add 
+            action="advancedentity/index/index" 
+            id="Vendor_AdvancedEntity::listing"
+            module="Vendor_AdvancedEntity" 
+            parent="Vendor_AdvancedEntity::menu" 
+            resource="Vendor_AdvancedEntity::listing"
+            sortOrder="1" 
+            title="AdvancedEntity listing"/>
+  </menu>
+</config>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <!-- <block class="Magento\Customer\Block\Form\Edit" name="customer_edit2" template="Magento_OtpLogin::form/edit.phtml" cacheable="false">
+                <container name="form.additional.info" as="form_additional_info"/>
+            </block> -->
+        <referenceBlock name="customer_edit">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Origin_OtpLogin::form/edit.phtml</argument>
+            </action>
+        </referenceBlock>
+
+         <referenceContainer name="form.additional.info">
+            <block class="Magento\Customer\Block\Form\Edit"  template="Origin_OtpLogin::additionalinfocustomer.phtml"/>
+         </referenceContainer>
+        </referenceContainer>
+    </body>
+</page>

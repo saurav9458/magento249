@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+    Magento 2 Module Configuration File
+    
+    Defines the module metadata and setup version for the AdvancedEntity module.
+    
+    @module Vendor_AdvancedEntity
+    @version 1.0.0
+    @namespace urn:magento:framework:Module/etc/module.xsd
+    
+    This configuration file registers the module with Magento and specifies
+    the initial database setup version. The setup_version is used for
+    managing database schema upgrades and data migrations.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Vendor_AdvancedEntity" setup_version="1.0.0"/>
+    <sequence>
+      <module name="Magento_Backend" />
+      <module name="Magento_Ui" />
+    </sequence>
+</config>

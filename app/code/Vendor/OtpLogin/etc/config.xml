@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <sms_setting>
+            <otp_general>
+                <enable>1</enable>
+                <otp_lock_time>30</otp_lock_time>
+                <enable_auto_approve>1</enable_auto_approve>
+            </otp_general>
+            <customer_message>
+                <otp_sms>Origin Club: Registration Otp ##OTP##.</otp_sms>
+                <login_otp_sms>Origin Club: Login Otp ##OTP## .</login_otp_sms>
+                <customer_register_sms>Origin Club: Customer register sucessfully</customer_register_sms>
+                <customer_Login_sms>Origin Club: Customer Login sucessfully</customer_Login_sms>
+            </customer_message>
+        </sms_setting>
+
+    </default>
+</config>

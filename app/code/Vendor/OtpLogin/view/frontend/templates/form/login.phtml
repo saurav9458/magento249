@@ -1,0 +1,198 @@
+<?php
+/**
+ * Copyright © 2020 Origin. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+$loader = $block->getViewFileUrl('/')."/Origin_OtpLogin/images/loader-1.gif";
+?>
+<div class="block block-customer-login">
+    <div class="block-title">
+        <strong id="block-customer-login-heading" role="heading" aria-level="2"><?php /* @escapeNotVerified */ echo __('Registered Customers') ?></strong>
+    </div>
+    <div class="block-content" aria-labelledby="block-customer-login-heading">
+        <form class="form form-login"
+              action="<?php echo $block->getUrl('otplogin/account/loginpost') ?>"
+              method="post"
+              id="login-form"
+              data-mage-init='{"validation":{}}'>
+            <?php echo $block->getBlockHtml('formkey'); ?>
+            <fieldset class="fieldset login" data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>">
+
+
+            <div class="field mobile required">
+             <label class="label" for="mobile"><span><?php /* @escapeNotVerified */ echo __('Mobile Number')?></span></label>
+            <div class="control">
+                <div>
+                <span class="plus-icon-text"><?=  $block->escapeHtml(__('+'))?></span>
+                <input type="text" name="isd_code" id="isd_code" placeholder="<?= $block->escapeHtml(__('91'))?>"
+                        class="input-text mobile-ct only_numeric" minlength="1" maxlength="4"
+                        value=""
+                        data-validate="{required:true, 'validate-digits':true }"></div>    
+                <input type="text" name="mobile" id="mobile" 
+                value="" 
+                title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" 
+                class="input-text mobile-wv" 
+                data-validate="{required:true, 'validate-digits':true }">
+                <button class="action" id="mobile-verify-btn" type="button" >
+                        <span><?php /* @escapeNotVerified */echo __('Send OTP') ?></span>
+                    </button>
+                </div>
+                <span id="loader" style="display:none">
+                    <img src="<?php echo $loader;?>" alt="loading.." />
+                </span>
+            </div>
+            <div id="mobile-message" class="otp-message"></div>
+        </div>
+        <div class="field mobile_verify required">
+            <label for="mobile_verify" class="label"><span><?php echo "Code verify";?></span></label>
+            <input type="hidden" name="mobile_verify" id="mobile_verify" value="">
+            <input type="hidden" name="verified_mobile" id="verified_mobile" value="">
+            <div id="otp-wrapper">
+                <div class="otp-verification-block required" style="" id="otp-block">
+                    <?php $style="display:none;"?>
+                    <?php /*if($block->getFormData()->getMobileVerify()): ?>
+                        <?php $style="display:inline-block;"?>
+                    <?php endif; */ ?>
+                    <input type="text" name="otpvalue" id="otpvalue" data-validate="{required:true}" 
+                    value="" class="input-text otp-input" style="width:100px;" />
+                    <button class="action otp-resend-button" id="otp-verify-btn" type="button" >
+                        <span><?php /* @escapeNotVerified */echo __('Verify OTP') ?></span>
+                    </button>
+                    <button class="action otp-resend-button" id="resend" type="button" >
+                        <span><?php /* @escapeNotVerified */echo __('Resend') ?></span>
+                    </button>
+                    <div class="otp-tag-line"><i><?php /* @escapeNotVerified */echo __('You have to verify within 5 minutes, Otherwise OTP will expire'); ?></i></div>
+                    <div id="otp-message" class="otp-message"></div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="field note"><?php /* @escapeNotVerified */ echo __('If you have an account, sign in with your email address or mobile number.') ?></div>
+
+                <div class="field email required">
+                    <label class="label" for="email"><span><?php /* @escapeNotVerified */ //echo __('Email / Mobile Number') ?></span></label>
+                    <div class="control">
+                        <input name="login[username]" value="<?php //echo $block->escapeHtml($block->getUsername()) ?>" <?php //if ($block->isAutocompleteDisabled()) :?> autocomplete="off"<?php //endif; ?> id="email" type="text" class="input-text" title="<?php /* @escapeNotVerified */ //echo __('Email / Mobile Number') ?>" data-validate="{required:true}">
+                    </div>
+                </div>
+                <div class="field password required">
+                    <label for="pass" class="label"><span><?php /* @escapeNotVerified */ //echo __('Password') ?></span></label>
+                    <div class="control">
+                        <input name="login[password]" type="password" <?php //if ($block->isAutocompleteDisabled()) :?> autocomplete="off"<?php //endif; ?> class="input-text" id="pass" title="<?php /* @escapeNotVerified */ //echo __('Password') ?>" data-validate="{required:true, 'validate-password':true}">
+                    </div>
+                </div> -->
+                <?php echo $block->getChildHtml('form_additional_info'); ?>
+                <div class="actions-toolbar">
+                    <div class="primary"><button type="submit" class="action login primary" name="send" id="send2"><span><?php /* @escapeNotVerified */ echo __('Login') ?></span></button></div>
+                    <div class="secondary"><a class="action remind" href="<?php /* @escapeNotVerified */ echo $block->getForgotPasswordUrl() ?>"><span><?php /* @escapeNotVerified */ echo __('Forgot Your Password?') ?></span></a></div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+<script>
+require([
+    'jquery',
+    'mage/mage',
+], function($){
+    
+        $('button#otp-verify-btn').css({left: '107px'});
+        $('button#resend').css({left: '220px'});
+        $("#otpvalue").focusout(function() {
+            $("#otpvalue").css({'border-color': '#d1d1d1'});
+        });
+        $('input[name="mobile"]').keypress(function (e) {
+            var regex = new RegExp("^[0-9-]+$");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            var keycode1 = (e.keyCode ? e.keyCode : e.which);
+            if (regex.test(str) || (keycode1 == 0 || keycode1 == 9 || keycode1 == 8 || keycode1 == 116)) {
+                return true;
+            }
+            e.preventDefault();
+            return false;
+        });
+        $('button#mobile-verify-btn').on('click', function(){
+            $('input[name="mobile"]').validation();
+            $('input[name="isd_code"]').validation();
+  	    if($('input[name="mobile"]').validation('isValid') && $('input[name="isd_code"]').validation('isValid') ){
+                send();
+	    }
+        });
+        $('button#otp-verify-btn').on('click', function(){
+            $('input[name="otpvalue"]').validation();
+  	    if($('input[name="otpvalue"]').validation('isValid')){
+                verify();
+	    }
+        });
+        function verify(){
+            $.ajax({
+                url: "<?php echo $this->getUrl("otplogin/frontend/otpverify"); ?>",
+                data: {'otpvalue': $('#otpvalue').val(),
+                        'mobilenumber':$('input[name="mobile"]').val(),
+                        'isdcode':$('input[name="isd_code"]').val()},
+                type: 'post',
+                dataType: 'json',
+                // showLoader: true,
+                success: function (res) {
+                    $('#mobile_verify').val(res.response);
+                    $('#otp-message').css("display", "block");
+                    if (res.response) {
+                        $("#otpvalue").css({'border-color': '#8dc041'});
+                        $('#otp-message').html('<div class="message-success success message"><div>'+$.mage.__('Your OTP is successfully verified.')+'</div></div>');
+                        $('#verified_mobile').val(res.contactnumber);
+                    } else {
+                        $("#otpvalue").css({'border-color': '#ed8380'});
+                        $('#otp-message').html('<div class="message-error error message"><div>'+$.mage.__('Your OTP is incorrect or expired, Please enter correct OTP or Resend again.')+'</div></div>');
+                        $('#verified_mobile').val('');
+                    }
+                }
+            });
+        }
+        function send(){
+            if (window.matchMedia('(max-width: 767px)').matches) {
+                $('#mobile').css("width", "87%");
+            }
+            $('#loader').css("display", "inline-block");
+            $("#otp-message").css("display", "none");
+            $("#otpvalue").val('');
+            $("#otpvalue").css({'border-color': '#d1d1d1'});
+            $.ajax({
+            //    showLoader: true,
+                url: "<?php echo $this->getUrl("otplogin/frontend/otpsend"); ?>",
+                data:  {'mobilenumber':$('input[name="mobile"]').val(),
+                        'isdcode':$('input[name="isd_code"]').val(),
+                        'login':true},
+                type: "POST",
+                dataType: 'json'
+            }).done(function (res) {
+                $('#loader').css("display", "none");
+                if (window.matchMedia('(max-width: 767px)').matches) {
+                    $('#mobile').css("width", "100%");
+                }
+                $('#mobile-message').css("display", "block");
+                $('#mobile-message').html('<span>&nbsp;</span>'+res.messages);
+                setTimeout(function() {
+                    $("#mobile-message").hide('blind', {}, 1000);
+                }, 10000);
+            });
+        }
+	$( "#resend" ).click(function() {
+    	   $('input[name="mobile"]').validation();
+  	    if($('input[name="mobile"]').validation('isValid')){
+                send();
+	    }
+	});
+	$('#login-form').submit(function() {
+            if($('#login-form').validation('isValid')){
+                if($('#verified_mobile').val() != $('#mobile').val() || !$('#mobile_verify').val() || !$('#verified_mobile').val()){
+                    $('#otp-message').css("display", "block");
+                    $('#otp-message').html('<div class="message-error error message"><div><?php echo __('Mobile number is not verified'); ?></div></div>');
+                    setTimeout(function() {
+                        $("#otp-message").hide('blind', {}, 1000);
+                    }, 5000);
+                    return false;
+                }
+            }
+	});
+
+});
+</script>

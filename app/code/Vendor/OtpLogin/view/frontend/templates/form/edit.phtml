@@ -1,0 +1,252 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Form\Edit $block */
+?>
+<?php
+/**
+ * Copyright © 2020 Origin. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+$loader = $block->getViewFileUrl('/')."/Origin_OtpLogin/images/loader-1.gif";
+?>
+<form class="form form-edit-account" action="<?= $block->escapeUrl($block->getUrl('otplogin/frontend/edit')) ?>" method="post" id="form-validate" enctype="multipart/form-data" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>" autocomplete="off">
+    <fieldset class="fieldset info">
+        <?= $block->getBlockHtml('formkey') ?>
+        <legend class="legend"><span><?= $block->escapeHtml(__('Account Information3')) ?></span></legend><br>
+        <?= $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Name::class)->setObject($block->getCustomer())->toHtml() ?>
+
+        <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
+        <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
+        <?php $_gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class) ?>
+        <?php if ($_dob->isEnabled()) : ?>
+            <?= $_dob->setDate($block->getCustomer()->getDob())->toHtml() ?>
+        <?php endif ?>
+        <?php if ($_taxvat->isEnabled()) : ?>
+            <?= $_taxvat->setTaxvat($block->getCustomer()->getTaxvat())->toHtml() ?>
+        <?php endif ?>
+        <?php if ($_gender->isEnabled()) : ?>
+            <?= $_gender->setGender($block->getCustomer()->getGender())->toHtml() ?>
+        <?php endif ?>
+    </fieldset>
+
+    <fieldset class="fieldset" >
+        <div class="field email required">
+            <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+            <div class="control">
+                <input type="email" name="email" id="email" autocomplete="email" value="<?= $block->escapeHtmlAttr($block->getCustomer()->getEmail()) ?>" title="<?= $block->escapeHtmlAttr(__('Email')) ?>" class="input-text" data-validate="{required:true, 'validate-email':true}" />
+            </div>
+            <label class="label" for="mobile-edit"><span><?php /* @escapeNotVerified */ echo __('Mobile Number')?></span></label>
+                <!--span class="plus-icon-text"><?=  $block->escapeHtml(__('+'))?></span>
+                <input type="text" name="isd_code-edit" id="isd_code-edit" placeholder="<?= $block->escapeHtml(__('91'))?>"
+                        class="input-text mobile-ct only_numeric" minlength="1" maxlength="4"
+                        value=""
+                        data-validate="{required:true, 'validate-digits':true }"-->
+                <input type="text" name="mobile-edit" id="mobile-edit" 
+                value="<?php echo $block->getCustomer()->getCustomAttribute('mobile')->getValue(); ?>" 
+                title="<?php /* @escapeNotVerified */ echo __('Mobile Number') ?>" 
+                class="input-text mobile-wv" 
+                data-validate="{required:true, 'validate-digits':true }">
+                <button class="action" id="mobile-verify-btn-edit" type="button" >
+                    <span><?php /* @escapeNotVerified */ echo __('Send OTP') ?></span>
+                </button>
+                <span id="loader-edit" style="display:none">
+                    <img src="<?php echo $loader;?>" alt="loading.." />
+                </span>
+            <div id="mobile-message-edit" class="otp-message"></div>
+            <div class="field mobile_verify required">
+            <label for="mobile_verify-edit" class="label"><span><?php echo "Code verify";?></span></label>
+            <input type="hidden" name="mobile_verify-edit" id="mobile_verify-edit" value="">
+            <input type="hidden" name="verified_mobile-edit" id="verified_mobile-edit" value="">
+            <div id="otp-wrapper">
+                <div class="otp-verification-block required" style="" id="otp-block-edit">
+                <?php $style="display:none;"?>
+                    <?php /*if($block->getFormData()->getMobileVerify()): ?>
+                        <?php $style="display:inline-block;"?>
+                    <?php endif; */ ?>
+                    <input type="text" name="otpvalue-edit" id="otpvalue-edit" data-validate="{required:true}" 
+                    value="" class="input-text otp-input" />
+                    <!-- <button class="action otp-resend-button" id="otp-verify-btn-edit" type="button" >
+                        <span><?php /* @escapeNotVerified * echo __('Verify OTP') ?></span>
+                    </button> -->
+                    <!-- <button class="action otp-resend-button" id="resend-edit" type="button" >
+                        <span><?php /* @escapeNotVerified * echo __('Resend') */ ?></span>
+                    </button> -->
+                    <div class="otp-tag-line"><i><?php /* @escapeNotVerified */ echo __('You have to verify within 5 minutes, Otherwise OTP will expire'); ?></i></div>
+                    <div id="otp-message-edit" class="otp-message"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </fieldset>
+    <?= $block->getChildHtml('form_additional_info') ?>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action save primary" title="<?= $block->escapeHtmlAttr(__('Save')) ?>"><span><?= $block->escapeHtml(__('Save')) ?></span></button>
+        </div>
+        <div class="secondary">
+            <a class="action back" href="<?= $block->escapeUrl($block->getBackUrl()) ?>"><span><?= $block->escapeHtml(__('Go back')) ?></span></a>
+        </div>
+    </div>
+</form>
+<script>
+    require([
+        "jquery",
+        "mage/mage"
+    ], function($){
+        var dataForm = $('#form-validate');
+        var ignore = <?= /* @noEscape */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
+        
+        dataForm.mage('validation', {
+        <?php if ($_dob->isEnabled()) : ?>
+            errorPlacement: function(error, element) {
+                if (element.prop('id').search('full') !== -1) {
+                    var dobElement = $(element).parents('.customer-dob'),
+                        errorClass = error.prop('class');
+                    error.insertAfter(element.parent());
+                    dobElement.find('.validate-custom').addClass(errorClass)
+                        .after('<div class="' + errorClass + '"></div>');
+                }
+                else {
+                    error.insertAfter(element);
+                }
+            },
+            ignore: ':hidden:not(' + ignore + ')'
+        <?php else : ?>
+            ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+        <?php endif ?>
+        });
+
+    });
+</script>
+<script type="text/x-magento-init">
+    {
+        "[data-role=change-email], [data-role=change-password]": {
+            "changeEmailPassword": {
+                "titleChangeEmail": "<?= $block->escapeJs($block->escapeHtml(__('Change Email'))) ?>",
+                "titleChangePassword": "<?= $block->escapeJs($block->escapeHtml(__('Change Password'))) ?>",
+                "titleChangeEmailAndPassword": "<?= $block->escapeJs($block->escapeHtml(__('Change Email and Password'))) ?>"
+            }
+        },
+        "[data-container=new-password]": {
+            "passwordStrengthIndicator": {
+                "formSelector": "form.form-edit-account"
+            }
+        }
+    }
+</script>
+<script>
+require([
+    'jquery',
+    'mage/mage',
+], function($){
+    
+        $('button#otp-verify-btn-edit').css({left: '107px'});
+        $('button#resend-edit').css({left: '220px'});
+        $("#otpvalue-edit").focusout(function() {
+            $("#otpvalue-edit").css({'border-color': '#d1d1d1'});
+        });
+        $('input[name="mobile-edit"]').keypress(function (e) {
+            var regex = new RegExp("^[0-9-]+$");
+            var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+            var keycode1 = (e.keyCode ? e.keyCode : e.which);
+            if (regex.test(str) || (keycode1 == 0 || keycode1 == 9 || keycode1 == 8 || keycode1 == 116)) {
+                return true;
+            }
+            e.preventDefault();
+            return false;
+        });
+        $('button#mobile-verify-btn-edit').on('click', function(){
+            $('input[name="mobile-edit"]').validation();
+            $('input[name="isd_code-edit"]').validation();
+  	    if($('input[name="mobile-edit"]').validation('isValid') && $('input[name="isd_code-edit"]').validation('isValid') ){
+                send();
+	    }
+        });
+        $('button#otp-verify-btn-edit').on('click', function(){
+            $('input[name="otpvalue-edit"]').validation();
+  	    if($('input[name="otpvalue-edit"]').validation('isValid')){
+                verify();
+	    }
+        });
+        function verify(){
+            $.ajax({
+                url: "<?php echo $this->getUrl("otplogin/frontend/otpverify"); ?>",
+                data: {'otpvalue': $('#otpvalue-edit').val(),
+                        'mobilenumber':$('input[name="mobile-edit"]').val(),
+                        'isdcode':$('input[name="isd_code-edit"]').val()},
+                type: 'post',
+                dataType: 'json',
+                // showLoader: true,
+                success: function (res) {
+                    $('#mobile_verify-edit').val(res.response);
+                    $('#otp-message-edit').css("display", "block");
+                    if (res.response) {
+                        $("#otpvalue-edit").css({'border-color': '#8dc041'});
+                        $('#otp-message-edit').html('<div class="message-success success message"><div>'+$.mage.__('Your OTP is successfully verified.')+'</div></div>');
+                        $('#verified_mobile-edit').val(res.contactnumber);
+                    } else {
+                        $("#otpvalue-edit").css({'border-color': '#ed8380'});
+                        $('#otp-message-edit').html('<div class="message-error error message"><div>'+$.mage.__('Your OTP is incorrect or expired, Please enter correct OTP or Resend again.')+'</div></div>');
+                        $('#verified_mobile-edit').val('');
+                    }
+                }
+            });
+        }
+        function send(){
+            if (window.matchMedia('(max-width: 767px)').matches) {
+                $('#mobile-edit').css("width", "87%");
+            }
+            $('#loader-edit').css("display", "inline-block");
+            $("#otp-message-edit").css("display", "none");
+            $("#otpvalue-edit").val('');
+            $("#otpvalue-edit").css({'border-color': '#d1d1d1'});
+            $.ajax({
+            //    showLoader: true,
+                url: "<?php echo $this->getUrl("otplogin/frontend/otpsend"); ?>",
+                data:  {'mobilenumber':$('input[name="mobile-edit"]').val(),
+                        'isdcode':$('input[name="isd_code-edit"]').val(),
+                        'login':true},
+                type: "POST",
+                dataType: 'json'
+            }).done(function (res) {
+                $('#loader-edit').css("display", "none");
+                if (window.matchMedia('(max-width: 767px)').matches) {
+                    $('#mobile-edit').css("width", "100%");
+                }
+                $('#mobile-message-edit').css("display", "block");
+                $('#mobile-message-edit').html('<span>&nbsp;</span>'+res.messages);
+                setTimeout(function() {
+                    $("#mobile-message-edit").hide('blind', {}, 1000);
+                }, 10000);
+            });
+        }
+	$( "#resend-edit" ).click(function() {
+    	   $('input[name="mobile-edit"]').validation();
+  	    if($('input[name="mobile-edit"]').validation('isValid')){
+                send();
+	    }
+	});
+	$('#login-form-edit').submit(function() {
+            if($('#login-form-edit').validation('isValid')){
+                if($('#verified_mobile-edit').val() != $('#mobile-edit').val() || !$('#mobile_verify-edit').val() || !$('#verified_mobile-edit').val()){
+                    $('#otp-message-edit').css("display", "block");
+                    $('#otp-message-edit').html('<div class="message-error error message"><div><?php echo __('Mobile number is not verified'); ?></div></div>');
+                    setTimeout(function() {
+                        $("#otp-message-edit").hide('blind', {}, 1000);
+                    }, 5000);
+                    return false;
+                }
+            }
+	});
+
+});
+</script>
+<style>
+    .password-info{
+        display:none;
+    }
+</style>

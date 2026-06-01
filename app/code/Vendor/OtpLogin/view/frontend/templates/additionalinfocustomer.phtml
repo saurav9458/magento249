@@ -1,0 +1,62 @@
+<fieldset class="fieldset create account" >
+    <legend class="legend"><span><?php /* @escapeNotVerified */ echo __('Additional Information') ?></span></legend><br>
+    
+    <div class="field zip_code required">
+        <label for="zip_code" class="label"><span><?php /* @escapeNotVerified */ echo __('Pin Code'); ?></span></label>
+        <div class="control">
+            <input type="text" name="zip_code" title="<?php /* @escapeNotVerified */ echo __('Pin Code'); ?>"
+            class="input-text only_numeric"
+            minlength="6" maxlength="6"
+            value="<?php echo $block->getCustomer()->getCustomAttribute('zip_code')->getValue();?>"
+            data-validate="{required:true, 'validate-digits':true }" >
+        </div>
+    </div>
+    <div class="field isd_code required" style="visibility: hidden;height: 0px;">
+        <label for="isd_code" class="label"><span><?php /* @escapeNotVerified */ echo __('Isd code'); ?></span></label>
+        <div class="control">
+            <input type="text"
+            name="isd_code"
+            title="<?php /* @escapeNotVerified */ echo __('Isd code'); ?>"
+            class="input-text only_numeric"
+            minlength="2" maxlength="2"
+            value="<?php echo $block->getCustomer()->getCustomAttribute('isd_code')->getValue(); ?>"
+            data-validate="{required:true, 'validate-digits':true }" >
+        </div>
+    </div>
+    <div class="field mobile required" style="visibility: hidden;height: 0px;">
+        <label for="mobile" class="label"><span><?php /* @escapeNotVerified */ echo __('Mobile'); ?></span></label>
+        <div class="control">
+            <input type="text" 
+            name="mobile" 
+            title="<?php /* @escapeNotVerified */ echo __('Mobile'); ?>" 
+            class="input-text only_numeric" 
+            minlength="10" maxlength="10"
+            value="<?php echo $block->getCustomer()->getCustomAttribute('mobile')->getValue(); ?>"
+            data-validate="{required:true, 'validate-digits':true }" >
+        </div>
+    </div>
+    <div class="field customer_approve required" style="visibility: hidden;height: 0px;">
+        <label for="customer_approve" class="label"><span><?php /* @escapeNotVerified */ echo __('Customer Approve'); ?></span></label>
+        <div class="control">
+            <input type="text" 
+            name="customer_approve"
+            title="<?php /* @escapeNotVerified */ echo __('Customer Approve'); ?>" 
+            class="input-text only_numeric" 
+            value="1"
+            data-validate="{required:true, 'validate-digits':true }" >
+        </div>
+    </div>
+    <div class="field mobile_verify required" style="visibility: hidden;height: 0px; ">
+        <label for="mobile_verify" 
+        class="label"><span><?php /* @escapeNotVerified */ echo __('mobile verify'); ?></span></label>
+        <div class="control">
+            <input type="text" 
+            name="mobile_verify" 
+            title="<?php /* @escapeNotVerified */ echo __('mobile_verify'); ?>" 
+            class="input-text only_numeric" 
+            value="1"
+            data-validate="{required:true, 'validate-digits':true }" >
+        </div>
+    </div>
+</fieldset>
+

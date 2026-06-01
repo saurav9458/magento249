@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="sms_setting">
+            <!-- <group id="general"> -->
+            <group id="otp_general" translate="label" type="text" sortOrder="100" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Otp General Setting</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Module Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="otp_lock_time" translate="label" type="text" sortOrder="10" showInDefault="1"
+                       showInStore="1" showInWebsite="1">
+                    <label>OTP lock time (Second)</label>
+                    <comment>Please enter time in seconds in round figure</comment>
+                    <validate>required-entry validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="enable_auto_approve" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Customer Auto Approve</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="customer_message" translate="label" type="text" sortOrder="100" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Customer Message</label>
+                <field id="otp_sms" translate="label" type="textarea" sortOrder="1" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Register Otp Success</label>
+                    <comment><![CDATA[##OTP## is variable]]></comment>
+                </field>
+                <field id="login_otp_sms" translate="label" type="textarea" sortOrder="1" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Login Otp Success</label>
+                    <comment><![CDATA[##OTP## is variable]]></comment>
+                </field>
+                <field id="customer_register_sms" translate="label" type="textarea" sortOrder="1" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Customer Register Success SMS</label>
+                    <comment><![CDATA[##LINK## are variables.]]></comment>
+                </field>
+                <field id="customer_Login_sms" translate="label" type="textarea" sortOrder="1" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Customer Login Success SMS</label>
+                    <comment><![CDATA[login Sms]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
