@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright © Origin, Inc. All rights reserved.
+ * Copyright © Vendor, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Origin\OtpLogin\Controller\Frontend;
+namespace Vendor\OtpLogin\Controller\Frontend;
 
 use Magento\Customer\Api\AccountManagementInterface;
 use Magento\Framework\Event\ManagerInterface;
@@ -11,7 +11,7 @@ use Magento\Framework\Webapi\Rest\Request;
 use Magento\Customer\Model\CustomerExtractor;
 use Magento\Customer\Model\CustomerFactory;
 use Magento\Customer\Model\Session;
-use Origin\OtpLogin\Model\OriginOtpConstants;
+use Vendor\OtpLogin\Model\VendorOtpConstants;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\RequestInterface;
@@ -24,13 +24,13 @@ use Magento\Framework\UrlFactory;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Store\Model\StoreManagerInterface;
-use Origin\OtpLogin\Helper\Datahelper;
+use Vendor\OtpLogin\Helper\Datahelper;
 use Magento\Customer\Api\CustomerRepositoryInterface;
-use Origin\ShortMessageService\Helper\Data as OtpHelper;
+use Vendor\ShortMessageService\Helper\Data as OtpHelper;
 
 /**
  * Class OtpSend
- * @package Origin\OtpLogin\Controller\Frontend
+ * @package Vendor\OtpLogin\Controller\Frontend
  */
 class Edit extends Action
 {

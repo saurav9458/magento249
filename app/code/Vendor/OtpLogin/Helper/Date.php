@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright © Origin, Inc. All rights reserved.
+ * Copyright © Vendor, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Origin\OtpLogin\Helper;
+namespace Vendor\OtpLogin\Helper;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Helper\AbstractHelper;
@@ -13,7 +13,7 @@ use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Store\Model\ScopeInterface;
 /**
  * Class Data
- * @package Origin\OtpLogin\Helper
+ * @package Vendor\OtpLogin\Helper
  */
 class Date extends AbstractHelper
 {

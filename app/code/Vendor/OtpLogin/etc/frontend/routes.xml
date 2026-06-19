@@ -7,8 +7,8 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
     <router id="standard">
-        <route id="Origin_OtpLogin" frontName="otplogin">
-            <module name="Origin_OtpLogin" />
+        <route id="Vendor_OtpLogin" frontName="otplogin">
+            <module name="Vendor_OtpLogin" />
         </route>
     </router>
 </config>

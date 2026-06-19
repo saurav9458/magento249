@@ -1,16 +1,16 @@
 <?php
 /**
- * Copyright © Origin, Inc. All rights reserved.
+ * Copyright © Vendor, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Origin\OtpLogin\Model\ResourceModel;
+namespace Vendor\OtpLogin\Model\ResourceModel;
 
-use Origin\OtpLogin\Model\OriginOtpConstants;
+use Vendor\OtpLogin\Model\VendorOtpConstants;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 /**
  * Class MobileOtp
- * @package Origin\OtpLogin\Model\ResourceModel
+ * @package Vendor\OtpLogin\Model\ResourceModel
  */
 class MobileOtp extends AbstractDb
 {
@@ -21,7 +21,7 @@ class MobileOtp extends AbstractDb
      */
     public function _construct()
     {
-        $this->_init(OriginOtpConstants::ORIGIN_OTP_TABLE, OriginOtpConstants::OTP_TABLE_PRIMARY_KEY);
+        $this->_init(VendorOtpConstants::Vendor_OTP_TABLE, VendorOtpConstants::OTP_TABLE_PRIMARY_KEY);
     }
 
     /**
@@ -33,7 +33,7 @@ class MobileOtp extends AbstractDb
         try {
             return $this->getMainTable();
         } catch (\Exception $e) {
-            return OriginOtpConstants::ORIGIN_OTP_TABLE;
+            return VendorOtpConstants::Vendor_OTP_TABLE;
         }
     }
 

@@ -1,17 +1,17 @@
 <?php
 /**
- * Copyright © Origin, Inc. All rights reserved.
+ * Copyright © Vendor, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Origin\OtpLogin\Model;
+namespace Vendor\OtpLogin\Model;
 
 /**
- * Class OriginOtpConstants
- * @package Origin\OtpLogin\Model
+ * Class VendorOtpConstants
+ * @package Vendor\OtpLogin\Model
  */
-class OriginOtpConstants
+class VendorOtpConstants
 {
-    const ORIGIN_OTP_TABLE = 'origin_customer_mobile_otp';
+    const Vendor_OTP_TABLE = 'Vendor_customer_mobile_otp';
 
     const OTP_TABLE_PRIMARY_KEY = 'id';
 

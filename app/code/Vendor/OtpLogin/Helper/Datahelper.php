@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Copyright © 2020 Origin. All rights reserved.
+ * Copyright © 2020 Vendor. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Origin\OtpLogin\Helper;
+namespace Vendor\OtpLogin\Helper;
 
 use Magento\Customer\Helper\Session\CurrentCustomer;
 use Magento\Customer\Helper\View;
@@ -26,7 +26,7 @@ use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * Class Datahelper
- * @package Origin\OtpLogin\Helper
+ * @package Vendor\OtpLogin\Helper
  */
 class Datahelper extends \Magento\Framework\App\Helper\AbstractHelper
 {

@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright © Origin, Inc. All rights reserved.
+ * Copyright © Vendor, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Origin\OtpLogin\Model\ResourceModel\MobileOtp;
+namespace Vendor\OtpLogin\Model\ResourceModel\MobileOtp;
 
 use Magento\Framework\Data\Collection\Db\FetchStrategyInterface;
 use Magento\Framework\Data\Collection\EntityFactoryInterface;
@@ -11,15 +11,15 @@ use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\Event\ManagerInterface;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
-use Origin\OtpLogin\Helper\Data as OtpHelper;
-use Origin\OtpLogin\Helper\Date as DateHelper;
-use Origin\OtpLogin\Model\MobileOtp as MobileOtpModel;
-use Origin\OtpLogin\ResourceModel\MobileOtp as MobileOtpResourceModel;
+use Vendor\OtpLogin\Helper\Data as OtpHelper;
+use Vendor\OtpLogin\Helper\Date as DateHelper;
+use Vendor\OtpLogin\Model\MobileOtp as MobileOtpModel;
+use Vendor\OtpLogin\ResourceModel\MobileOtp as MobileOtpResourceModel;
 use Psr\Log\LoggerInterface;
 
 /**
  * Class Collection
- * @package Origin\OtpLogin\Model\ResourceModel\MobileOtp
+ * @package Vendor\OtpLogin\Model\ResourceModel\MobileOtp
  */
 class Collection extends AbstractCollection
 {

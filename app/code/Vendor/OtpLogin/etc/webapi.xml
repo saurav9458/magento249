@@ -2,19 +2,19 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
     <route url="V1/mobile/otp/send" method="POST">
-        <service class="Origin\OtpLogin\Api\SendOtpInterface" method="send"/>
+        <service class="Vendor\OtpLogin\Api\SendOtpInterface" method="send"/>
         <resources>
             <resource ref="anonymous"/>
         </resources>
     </route>
     <route url="V1/reset/password/verify" method="POST">
-        <service class="Origin\OtpLogin\Api\SendOtpInterface" method="verifyRPOtp"/>
+        <service class="Vendor\OtpLogin\Api\SendOtpInterface" method="verifyRPOtp"/>
         <resources>
             <resource ref="anonymous"/>
         </resources>
     </route>
     <route url="V1/mobile/otp/verify" method="POST">
-        <service class="Origin\OtpLogin\Api\SendOtpInterface" method="verifyOtp"/>
+        <service class="Vendor\OtpLogin\Api\SendOtpInterface" method="verifyOtp"/>
         <resources>
             <resource ref="anonymous"/>
         </resources>

@@ -4,7 +4,7 @@
  * See COPYING.txt for license details.
  */
 
-namespace Origin\OtpLogin\Controller\Account;
+namespace Vendor\OtpLogin\Controller\Account;
 
 use Magento\Framework\App\Action\HttpPostActionInterface as HttpPostActionInterface;
 use Magento\Customer\Model\Account\Redirect as AccountRedirect;

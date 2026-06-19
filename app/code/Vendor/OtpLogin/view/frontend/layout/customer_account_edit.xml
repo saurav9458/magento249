@@ -7,12 +7,12 @@
             </block> -->
         <referenceBlock name="customer_edit">
             <action method="setTemplate">
-                <argument name="template" xsi:type="string">Origin_OtpLogin::form/edit.phtml</argument>
+                <argument name="template" xsi:type="string">Vendor_OtpLogin::form/edit.phtml</argument>
             </action>
         </referenceBlock>
 
          <referenceContainer name="form.additional.info">
-            <block class="Magento\Customer\Block\Form\Edit"  template="Origin_OtpLogin::additionalinfocustomer.phtml"/>
+            <block class="Magento\Customer\Block\Form\Edit"  template="Vendor_OtpLogin::additionalinfocustomer.phtml"/>
          </referenceContainer>
         </referenceContainer>
     </body>

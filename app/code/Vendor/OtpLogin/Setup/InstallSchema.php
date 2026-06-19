@@ -1,19 +1,19 @@
 <?php
 /**
- * Copyright © Origin, Inc. All rights reserved.
+ * Copyright © Vendor, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Origin\OtpLogin\Setup;
+namespace Vendor\OtpLogin\Setup;
 
 use Magento\Framework\DB\Ddl\Table;
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
-use Origin\OtpLogin\Model\OriginOtpConstants;
+use Vendor\OtpLogin\Model\VendorOtpConstants;
 
 /**
  * Class InstallSchema
- * @package Origin\OtpLogin\Setup
+ * @package Vendor\OtpLogin\Setup
  */
 class InstallSchema implements InstallSchemaInterface
 {
@@ -25,9 +25,9 @@ class InstallSchema implements InstallSchemaInterface
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $setup->startSetup();
-        $tableName = $setup->getTable(OriginOtpConstants::ORIGIN_OTP_TABLE);
+        $tableName = $setup->getTable(VendorOtpConstants::Vendor_OTP_TABLE);
         /**
-         * Create table 'origin_customer_mobile_otp'
+         * Create table 'Vendor_customer_mobile_otp'
          */
         if ($setup->getConnection()->isTableExists($tableName) != true) {
             $table = $setup->getConnection()

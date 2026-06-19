@@ -1,6 +1,6 @@
 <?php
 
-namespace Origin\OtpLogin\Controller\Address;
+namespace Vendor\OtpLogin\Controller\Address;
 
 use Magento\Framework\App\Action\HttpPostActionInterface as HttpPostActionInterface;
 use Magento\Customer\Api\AddressRepositoryInterface;

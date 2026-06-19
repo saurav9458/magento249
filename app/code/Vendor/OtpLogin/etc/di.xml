@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Origin\OtpLogin\Api\SendOtpInterface" type="Origin\OtpLogin\Model\Api\SendOtp" />
+    <preference for="Vendor\OtpLogin\Api\SendOtpInterface" type="Vendor\OtpLogin\Model\Api\SendOtp" />
     <preference for="Magento\Customer\Controller\Address\FormPost" 
-    type="Origin\OtpLogin\Controller\Address\FormPost" />
+    type="Vendor\OtpLogin\Controller\Address\FormPost" />
 </config>

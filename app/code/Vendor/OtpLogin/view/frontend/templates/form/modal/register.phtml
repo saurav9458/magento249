@@ -1,4 +1,4 @@
-<?php $loader = $block->getViewFileUrl('/')."/Origin_OtpLogin/images/loader-1.gif"; ?>
+<?php $loader = $block->getViewFileUrl('/')."/Vendor_OtpLogin/images/loader-1.gif"; ?>
 <div class="block-content" id="login-form-modal" aria-labelledby="block-customer-login-heading" style="display: none" >
     <form class="form form-login"
         action="<?php echo $block->getUrl('otplogin/account/loginpost') ?>"
@@ -71,8 +71,8 @@
 </div>
 <!-- Register form modal  -->
 <?php
-$helper = $this->helper('Origin\OtpLogin\Helper\Datahelper');
-$loader = $block->getViewFileUrl('/')."/Origin_OtpLogin/images/loader-1.gif";
+$helper = $this->helper('Vendor\OtpLogin\Helper\Datahelper');
+$loader = $block->getViewFileUrl('/')."/Vendor_OtpLogin/images/loader-1.gif";
 ?>
 <div id="register-modal" style="display: none">
 <form class="form create account form-create-account" action="<?php /* @escapeNotVerified */ echo $block->getUrl('customer/account/createpost') ?>" method="post" id="form-validate-register" enctype="multipart/form-data" autocomplete="off">
@@ -210,7 +210,7 @@ $loader = $block->getViewFileUrl('/')."/Origin_OtpLogin/images/loader-1.gif";
                             if (showConfirmation === true) {
                                 showConfirmation = false;
                                 confirmation({
-                                    title: $.mage.__('Origin Registration Information'),
+                                    title: $.mage.__('Vendor Registration Information'),
                                     content: $.mage.__('Once your account detail will check and approve by admin, You can access your account.'),
                                     actions: {
                                         confirm: function () {
@@ -343,7 +343,7 @@ $loader = $block->getViewFileUrl('/')."/Origin_OtpLogin/images/loader-1.gif";
                 //             if (showConfirmation === true) {
                 //                 showConfirmation = false;
                 //                 confirmation({
-                //                     title: $.mage.__('Origin Login Information'),
+                //                     title: $.mage.__('Vendor Login Information'),
                 //                     content: $.mage.__('Approve customer have Access of account detail, Membership Plan give you access to purches product.'),
                 //                     actions: {
                 //                         confirm: function () {

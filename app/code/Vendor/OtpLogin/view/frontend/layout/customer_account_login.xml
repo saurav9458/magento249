@@ -7,12 +7,12 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
-        <css src="Origin_OtpLogin::css/CustomerRegister.css"/>
+        <css src="Vendor_OtpLogin::css/CustomerRegister.css"/>
     </head>
     <body>
         <referenceBlock name="customer_form_login">
             <action method="setTemplate">
-                <argument name="template" xsi:type="string">Origin_OtpLogin::form/login.phtml</argument>
+                <argument name="template" xsi:type="string">Vendor_OtpLogin::form/login.phtml</argument>
             </action>
         </referenceBlock>
     </body>

@@ -1,6 +1,6 @@
 <?php 
 $objectManager = Magento\Framework\App\ObjectManager::getInstance();
-$helper = $objectManager->get('Origin\OtpLogin\Helper\Datahelper');
+$helper = $objectManager->get('Vendor\OtpLogin\Helper\Datahelper');
 ?>
 <script type="text/javascript">
     window.customerRegister = "<?php echo $helper->isActive(); ?>";

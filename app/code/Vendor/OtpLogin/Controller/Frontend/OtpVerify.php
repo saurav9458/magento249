@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright © Origin, Inc. All rights reserved.
+ * Copyright © Vendor, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Origin\OtpLogin\Controller\Frontend;
+namespace Vendor\OtpLogin\Controller\Frontend;
 
 use Magento\Customer\Model\Session;
 use Magento\Framework\App\Action\Action;

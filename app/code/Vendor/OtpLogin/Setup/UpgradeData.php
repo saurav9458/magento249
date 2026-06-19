@@ -1,9 +1,9 @@
 <?php
 /**
- * Copyright © 2020 Origin. All rights reserved.
+ * Copyright © 2020 Vendor. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Origin\OtpLogin\Setup;
+namespace Vendor\OtpLogin\Setup;
 
 use Magento\Customer\Model\Customer;
 use Magento\Customer\Setup\CustomerSetupFactory;
@@ -15,7 +15,7 @@ use Magento\Framework\Setup\UpgradeDataInterface;
 
 /**
  * Class UpgradeData
- * @package Origin\OtpLogin\Setup
+ * @package Vendor\OtpLogin\Setup
  */
 class UpgradeData implements UpgradeDataInterface
 {

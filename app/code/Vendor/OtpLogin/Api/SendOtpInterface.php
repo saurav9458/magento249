@@ -1,13 +1,13 @@
 <?php
 /**
- * Copyright © Origin, Inc. All rights reserved.
+ * Copyright © Vendor, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Origin\OtpLogin\Api;
+namespace Vendor\OtpLogin\Api;
 
 /**
  * Interface SendOtpInterface
- * @package Origin\OtpLogin\Api
+ * @package Vendor\OtpLogin\Api
  */
 interface SendOtpInterface
 {

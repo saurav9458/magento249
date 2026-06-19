@@ -2,7 +2,12 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <section id="sms_setting">
+
+        <section id="sms_setting" translate="label" type="text" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="0">
+        <class>separator-top</class>
+            <label>General</label>
+            <tab>General</tab>
+            <resource>Vendor_OtpLogin::config_Vendor_OtpLogin</resource>
             <!-- <group id="general"> -->
             <group id="otp_general" translate="label" type="text" sortOrder="100" showInDefault="1"
                    showInWebsite="1" showInStore="1">

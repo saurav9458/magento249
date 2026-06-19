@@ -1,18 +1,18 @@
 <?php
 /**
- * Copyright © Origin, Inc. All rights reserved.
+ * Copyright © Vendor, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-namespace Origin\OtpLogin\Model\Api;
+namespace Vendor\OtpLogin\Model\Api;
 
-use Origin\OtpLogin\Helper\Data as CoreDataHelper;
-//use Origin\OtpLogin\Helper\ResponseMessage;
-use Origin\OtpLogin\Api\SendOtpInterface;
-use Origin\OtpLogin\Model\OriginOtpConstants;
-use Origin\OtpLogin\Model\MobileOtpFactory as OriginOtpModel;
-use Origin\OtpLogin\Model\ResourceModel\MobileOtpFactory as OriginOtpResourceModel;
-use Origin\OtpLogin\Model\ResourceModel\MobileOtp\CollectionFactory as OriginOtpCollectionModel;
-use Origin\OtpLogin\Helper\Data as SmsHelper;
+use Vendor\OtpLogin\Helper\Data as CoreDataHelper;
+//use Vendor\OtpLogin\Helper\ResponseMessage;
+use Vendor\OtpLogin\Api\SendOtpInterface;
+use Vendor\OtpLogin\Model\VendorOtpConstants;
+use Vendor\OtpLogin\Model\MobileOtpFactory as VendorOtpModel;
+use Vendor\OtpLogin\Model\ResourceModel\MobileOtpFactory as VendorOtpResourceModel;
+use Vendor\OtpLogin\Model\ResourceModel\MobileOtp\CollectionFactory as VendorOtpCollectionModel;
+use Vendor\OtpLogin\Helper\Data as SmsHelper;
 use Magento\Customer\Api\CustomerRepositoryInterface;
 use Magento\Customer\Model\AuthenticationInterface;
 use Magento\Customer\Model\ResourceModel\Customer\CollectionFactory as CustomerCollection;
@@ -21,11 +21,11 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Math\Random;
 use Magento\Framework\Model\Context;
 use Magento\Store\Model\StoreManagerInterface;
-//use Origin\OtpLogin\Model\AccountManagement as CustomerAccountManagement;
+//use Vendor\OtpLogin\Model\AccountManagement as CustomerAccountManagement;
 
 /**
  * Class SendOtp
- * @package Origin\OtpLogin\Model\Api
+ * @package Vendor\OtpLogin\Model\Api
  */
 class SendOtp implements SendOtpInterface
 {
@@ -40,17 +40,17 @@ class SendOtp implements SendOtpInterface
 //    protected $_responseMessage;
 
     /**
-     * @var OriginOtpModel
+     * @var VendorOtpModel
      */
     protected $_mobileOtpModel;
 
     /**
-     * @var OriginOtpResourceModel
+     * @var VendorOtpResourceModel
      */
     protected $_mobileOtpResourceModel;
 
     /**
-     * @var OriginOtpCollectionModel
+     * @var VendorOtpCollectionModel
      */
     protected $_mobileOtpModelCollection;
 
@@ -94,9 +94,9 @@ class SendOtp implements SendOtpInterface
      * @param Context $context
      * @param CoreDataHelper $coreDataHelper
      * @param ResponseMessage $responseMessage
-     * @param OriginOtpModel $mobileOtpModel
-     * @param OriginOtpResourceModel $mobileOtpResourceModel
-     * @param OriginOtpCollectionModel $mobileOtpModelCollection
+     * @param VendorOtpModel $mobileOtpModel
+     * @param VendorOtpResourceModel $mobileOtpResourceModel
+     * @param VendorOtpCollectionModel $mobileOtpModelCollection
      * @param StoreManagerInterface $storeManager
      * @param CustomerCollection $customerCollection
      * @param SmsHelper $smsHelper
@@ -109,9 +109,9 @@ class SendOtp implements SendOtpInterface
         Context $context,
         CoreDataHelper $coreDataHelper,
 //        ResponseMessage $responseMessage,
-        OriginOtpModel $mobileOtpModel,
-        OriginOtpResourceModel $mobileOtpResourceModel,
-        OriginOtpCollectionModel $mobileOtpModelCollection,
+        VendorOtpModel $mobileOtpModel,
+        VendorOtpResourceModel $mobileOtpResourceModel,
+        VendorOtpCollectionModel $mobileOtpModelCollection,
         StoreManagerInterface $storeManager,
         CustomerCollection $customerCollection,
         SmsHelper $smsHelper,
@@ -156,8 +156,8 @@ class SendOtp implements SendOtpInterface
     {
         try {
             if (empty($mobileNumber) ||
-                ($isCustomer != OriginOtpConstants::SEND_OTP_CUSTOMER_REGISTRATION &&
-                    $isCustomer != OriginOtpConstants::SEND_OTP_CUSTOMER_RESET) ||
+                ($isCustomer != VendorOtpConstants::SEND_OTP_CUSTOMER_REGISTRATION &&
+                    $isCustomer != VendorOtpConstants::SEND_OTP_CUSTOMER_RESET) ||
                 empty($this->validateIsdCode($isd_code))
             ) {
                 return $this->_responseMessage->_sendResponse(
@@ -185,7 +185,7 @@ class SendOtp implements SendOtpInterface
             $customerCollection = $this->_customerCollection->create();
             $customerCollection->addAttributeToFilter("website_id", ['eq' => $websiteId]);
             $customerCollection->addAttributeToFilter('mobile', $mobileNumber);
-            if ($isCustomer == OriginOtpConstants::SEND_OTP_CUSTOMER_REGISTRATION) {
+            if ($isCustomer == VendorOtpConstants::SEND_OTP_CUSTOMER_REGISTRATION) {
                 if ($customerCollection->getSize() > 0) {
                     return $this->_responseMessage->_sendResponse(
                         ResponseMessage::MOBILE_NUMBER_EXISTS,
@@ -194,7 +194,7 @@ class SendOtp implements SendOtpInterface
                     );
                 }
             }
-            if ($isCustomer == OriginOtpConstants::SEND_OTP_CUSTOMER_RESET) {
+            if ($isCustomer == VendorOtpConstants::SEND_OTP_CUSTOMER_RESET) {
                 if ($customerCollection->getSize() <= 0) {
                     return $this->_responseMessage->_sendResponse(
                         ResponseMessage::RECORDS_NOT_FOUND,
@@ -291,7 +291,7 @@ class SendOtp implements SendOtpInterface
      */
     private function getCustomerOtpMessage($otpCode)
     {
-        $otpSms = OriginOtpConstants::OTP_DEFAULT_SMS_TEXT;
+        $otpSms = VendorOtpConstants::OTP_DEFAULT_SMS_TEXT;
         if (strpos($otpSms, "##OTP##") >= 0) {
             $sms = str_replace("##OTP##", $otpCode, trim($otpSms));
         } else {
@@ -313,7 +313,7 @@ class SendOtp implements SendOtpInterface
             $expiryTime = date(
                 'Y-m-d H:i:s',
                 strtotime(
-                    '+' . OriginOtpConstants::OTP_EXPIRY_TIME_IN_SECONDS . ' second',
+                    '+' . VendorOtpConstants::OTP_EXPIRY_TIME_IN_SECONDS . ' second',
                     strtotime(
                         $currentDateTime
                     )
@@ -330,7 +330,7 @@ class SendOtp implements SendOtpInterface
             }
             $mobileOtpModel->setMobileNumber($mobileNumber);
             $mobileOtpModel->setOtp($otpCode);
-            $mobileOtpModel->setMobileVerified(OriginOtpConstants::NEW_OTP_STATUS);
+            $mobileOtpModel->setMobileVerified(VendorOtpConstants::NEW_OTP_STATUS);
             $mobileOtpModel->setExpiry($expiryTime);
             $mobileOtpModel->setCreatedAt($currentDateTime);
             $mobileOtpModel->setUpdatedAt(null);
@@ -353,7 +353,7 @@ class SendOtp implements SendOtpInterface
     {
         try {
             if (empty($this->validateIsdCode($isd_code)) || empty($this->validateMobileNumber($mobile_number)) ||
-                strlen((string) $otp) != OriginOtpConstants::OTP_LENGTH
+                strlen((string) $otp) != VendorOtpConstants::OTP_LENGTH
             ) {
                 return $this->_responseMessage->_sendResponse(
                     ResponseMessage::MOBILE_NUMBER_INVALID,
@@ -373,7 +373,7 @@ class SendOtp implements SendOtpInterface
             $mobileOtp = $this->_mobileOtpModelCollection->create();
             $mobileOtp->addFieldToFilter("mobile_number", ["eq" => $mobileNumber]);
             $mobileOtp->addFieldToFilter("otp", ["eq"=>$otp]);
-            $mobileOtp->addFieldToFilter("mobile_verified", ["eq"=>OriginOtpConstants::NEW_OTP_STATUS]);
+            $mobileOtp->addFieldToFilter("mobile_verified", ["eq"=>VendorOtpConstants::NEW_OTP_STATUS]);
             $mobileOtp->addFieldToFilter('expiry', ['gteq' => $currentUtcTime]);
             $mobileOtp->setOrder('created_at', 'DESC');
             if ($mobileOtp->getSize() > 0) {
@@ -401,7 +401,7 @@ class SendOtp implements SendOtpInterface
         try {
             $currentUtcDateTime = $this->getCurrentUtcTime();
             $mobileOtpModel = $this->_mobileOtpModel->create()->load($otpId);
-            $mobileOtpModel->setMobileVerified(OriginOtpConstants::OTP_VERIFIED_STATUS);
+            $mobileOtpModel->setMobileVerified(VendorOtpConstants::OTP_VERIFIED_STATUS);
             $mobileOtpModel->setUpdatedAt($currentUtcDateTime);
             $mobileOtpModel->save();
             return $mobileOtpModel->getId();
@@ -422,7 +422,7 @@ class SendOtp implements SendOtpInterface
     {
         try {
             if (empty($this->validateIsdCode($isd_code)) || empty($this->validateMobileNumber($mobile_number)) ||
-                strlen((string) $otp) != OriginOtpConstants::OTP_LENGTH
+                strlen((string) $otp) != VendorOtpConstants::OTP_LENGTH
             ) {
                 return $this->_responseMessage->_sendResponse(
                     ResponseMessage::REQUEST_PARAMETERS_ERROR,
@@ -462,7 +462,7 @@ class SendOtp implements SendOtpInterface
             $mobileOtpCollection = $this->_mobileOtpModelCollection->create();
             $mobileOtpCollection->addFieldToFilter('mobile_number', ['eq' => $mobileNumber]);
             $mobileOtpCollection->addFieldToFilter('otp', ['eq' => $otp]);
-            $mobileOtpCollection->addFieldToFilter('mobile_verified', ['eq' => OriginOtpConstants::NEW_OTP_STATUS]);
+            $mobileOtpCollection->addFieldToFilter('mobile_verified', ['eq' => VendorOtpConstants::NEW_OTP_STATUS]);
             $mobileOtpCollection->addFieldToFilter('expiry', ['gteq' => $currentUtcDateTime]);
             if ($mobileOtpCollection->getSize() <= 0) {
                 return $this->_responseMessage->_sendResponse(ResponseMessage::OTP_INVALID, [], 417);
@@ -514,7 +514,7 @@ class SendOtp implements SendOtpInterface
     {
         $string = '0123456789';
         $string_shuffled = str_shuffle($string);
-        return substr($string_shuffled, 1, OriginOtpConstants::OTP_LENGTH);
+        return substr($string_shuffled, 1, VendorOtpConstants::OTP_LENGTH);
     }
 
     /**
@@ -534,7 +534,7 @@ class SendOtp implements SendOtpInterface
                 )
             );
         }
-        if (!filter_var($otp, FILTER_VALIDATE_INT) || strlen((string) $otp) != OriginOtpConstants::OTP_LENGTH) {
+        if (!filter_var($otp, FILTER_VALIDATE_INT) || strlen((string) $otp) != VendorOtpConstants::OTP_LENGTH) {
             throw new InputException(
                 __(
                     InputException::INVALID_FIELD_VALUE,
@@ -545,7 +545,7 @@ class SendOtp implements SendOtpInterface
         $mobileOtpCollection = $this->_mobileOtpModelCollection->create();
         $mobileOtpCollection->addFieldToFilter('mobile_number', ['eq' => $mobileNumber]);
         $mobileOtpCollection->addFieldToFilter('otp', ['eq' => $otp]);
-        $mobileOtpCollection->addFieldToFilter('mobile_verified', ['eq' => OriginOtpConstants::OTP_VERIFIED_STATUS]);
+        $mobileOtpCollection->addFieldToFilter('mobile_verified', ['eq' => VendorOtpConstants::OTP_VERIFIED_STATUS]);
         if ($mobileOtpCollection->getSize() > 0) {
             return true;
         }

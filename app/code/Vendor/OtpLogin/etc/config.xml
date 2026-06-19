@@ -8,10 +8,10 @@
                 <enable_auto_approve>1</enable_auto_approve>
             </otp_general>
             <customer_message>
-                <otp_sms>Origin Club: Registration Otp ##OTP##.</otp_sms>
-                <login_otp_sms>Origin Club: Login Otp ##OTP## .</login_otp_sms>
-                <customer_register_sms>Origin Club: Customer register sucessfully</customer_register_sms>
-                <customer_Login_sms>Origin Club: Customer Login sucessfully</customer_Login_sms>
+                <otp_sms>Vendor Club: Registration Otp ##OTP##.</otp_sms>
+                <login_otp_sms>Vendor Club: Login Otp ##OTP## .</login_otp_sms>
+                <customer_register_sms>Vendor Club: Customer register sucessfully</customer_register_sms>
+                <customer_Login_sms>Vendor Club: Customer Login sucessfully</customer_Login_sms>
             </customer_message>
         </sms_setting>
 
